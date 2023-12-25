@@ -6,75 +6,21 @@
 	    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
 
-    <style>
-        body {
-            background-color: #f5f1e4; /* Updated background color */
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+<style>
+img { max-width: 100%; height: auto;
+    max-width: 100%;
+    height: auto;
+}
 
-   #editorContainer {
-        text-align: center;
-        width: 600px;
-        height: 450px;
-        position: relative;
-        border-radius: 30px;
-        overflow: hidden;
-    }
-
-    #editorContainer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('static/bgm.png');
-        background-size: cover;
-        background-position: center;
-        opacity: 0.2; /* Set the opacity of the background image */
-        border-radius: 30px; /* Match the border-radius of the container */
-        z-index: -1; /* Ensure it stays behind the content */
-    }
-        #c {
-            border: 1px solid black;
-            border-radius: 30px;
-            width: 100%; /* Set width to 100% of the container */
-            height: 100%; /* Set height to 100% of the container */
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-
-        #logo {
-            max-width: 40%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .register-button {
-            background-color: #003056; /* Example color */
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 3px 5px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 2px 0;
-            cursor: pointer;
-            width: 40%;
-            box-sizing: border-box;
-        }
-		
-		      body {
+.info-box-icon {
+    max-width: 70px; /* Adjust this value as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+</style></head>
+<style>
+      body {
         font-family: 'Roboto', sans-serif;
+		
         background-color: #f5f1e4;
         color: black;
         margin: 0; /* Remove default margin */
@@ -914,8 +860,8 @@ display: block;
 }
 
     </style>
-</head>
-<body>
+
+
 <div class="top-bar">
     <a href="/">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
@@ -924,130 +870,67 @@ display: block;
 
     <div id="nav-overlay" class="nav-overlay">
         <div id="nav-links">
-            <a href="/karte">Karte</a>
-            <a href="/list">Beiträge</a>
-            <a href="/neuerbeitrag">Beitrag hinzufügen</a>
-            <a href="/ueber">Über</a>
-            
+            <a href="/editor">Create a new design</a>
+            <a href="/preisliste">Price list and shipping</a>
+            <a href="/ideen">Ideen</a>
+            <a href="/ueber">About</a>
+
         </div>
     </div>
 </div>
-        <img id="logo" src="static/logo.png" alt="Logo">
+<div class="index-image">
+<img alt="Index Title Image" class="index-image" src="{{ url_for('static', filename='index_titleimage.png') }}" style="; max-width: 100%; height: auto;"/>
+<div class="cover-text-container">
+<h1>Create a personal geschenk!</h1>
+<p>Give your family a gift with a personal touch.</p>
+</div>
+</div>
+<div class="info-box-container">
+<!-- Box 1 -->
+<div class="info-box box-red" onclick="redirectToStimmungskarte()" style="cursor: pointer; margin: 10px">
+<img alt="Map Icon" class="info-box-icon" src="{{ url_for('static', filename='index_icon_map.png') }}">
+<p class="info-box-title">Choose from premade designs!</p>
+<p class="info-box-undertitle">Choose one of our designs. Surely you will like them!</p>
+</div>
+<!-- Box 2 -->
+<div class="info-box box-blue" onclick="redirectToneuerbeitrag()" style="cursor: pointer; margin: 10px">
+<img alt="Public Icon" class="info-box-icon" src="{{ url_for('static', filename='index_icon_public.png') }}">
+<p class="info-box-title">Create your own design! </p>
+<p class="info-box-undertitle">If you feel creative, this option is for you.</p>
 
-       <div id="editorContainer">
-        <canvas id="c" width="600" height="450"></canvas>
-        <div>
-            
-        </div>
-    </div>
-<input type="file" id="fileUpload">
-            <button class="register-button" onclick="uploadFile()">Upload</button>
-            <select id="fontSelector" class="register-button">
-                <option value="Arial">Arial</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Courier New">Courier New</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Comic Sans MS">Comic Sans MS</option>
-                <!-- Add more fonts as needed -->
-            </select>
-			
-            <button class="register-button" onclick="addText()">Add Text</button>
-			<button class="register-button" onclick="saveMotiveAndOrder()">Save Motive and Order</button>
+</div>
+<!-- Box 3 -->
+<div class="info-box box-green" onclick="redirectToList()" style="cursor: pointer; margin: 10px">
+<img alt="List Icon" class="info-box-icon" src="{{ url_for('static', filename='index_icon_list.png') }}" >
+<p class="info-box-title">Guide & price list </p>
+<p class="info-box-undertitle">See our tips for the best results, and view our price list.</p>
+</div>
+</div>
+<!-- Info text field with wrapped text container -->
+<div class="info-text-field">
+<div class="info-text-container">
+<p class="info-text-title">Together we can make this town beautiful!</p>
+<p class="info-text-undertitle">Stimmungskompass is an all-encompassing tool of participatory planning.</p>
+<p class="info-text-undertitle">This form of civic engagement helps influence town leadership and decision-making. Share your ideas, vote for improvements submitted by other citizens, and help send your town in the right direction.</p>
+<p class="info-text-undertitle">The power to make this town better lies in your hands!</p>
+</div>
+</div>
 
-    <script>
-	
-	    var stripe = Stripe('pk_live_51Lxm6sEgtx1au46GHhDtjk3JZ04OaA8p7T6xM4lQFLxfbPotRsuT4AhoM4WA0myCsirZeQN32vnUvUSmn1zVyD3m00docojbx7'); // Replace with your Stripe publishable key
-
-        var canvas = new fabric.Canvas('c', {
-            preserveObjectStacking: true,
-            backgroundColor: 'transparent'
-        });
-
-        function uploadFile() {
-            var file = document.getElementById('fileUpload').files[0];
-            var reader = new FileReader();
-            reader.onload = function (f) {
-                var img = new Image();
-                img.onload = function () {
-                    var imgInstance = new fabric.Image(img, {
-                        scaleX: 0.5,
-                        scaleY: 0.5
-                    });
-                    canvas.add(imgInstance);
-                }
-                img.src = f.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-
-        function addText() {
-            var selectedFont = document.getElementById('fontSelector').value;
-            canvas.add(new fabric.IText('Tap and Type', { 
-                left: 100, 
-                top: 100,
-                fontFamily: selectedFont
-            }));
-        }
-		
-		 // Event listener for delete key
-    document.addEventListener('keydown', function(e) {
-        if(e.key === 'Delete') {
-            var activeObject = canvas.getActiveObject();
-            if(activeObject) {
-                canvas.remove(activeObject);
-            }
-        }
-    });
+<!-- Featured Projects Section -->
+<div class="projects-header">
+    <h1>Featured Projects:</h1>
+    <p>Take a look at the projects that caught our attention!</p>
+</div>
 
 
-        function saveMotive() {
-            var dataURL = canvas.toDataURL('image/png');
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/save_motive', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('imageData=' + encodeURIComponent(dataURL));
-        }
-		
+<div class="project-list">
+    
+</div>
 
-      function saveMotiveAndOrder() {
-        // Get current timestamp
-        var timestamp = new Date().toISOString();
+<div class="bottom-bar">
+    <p>v16.12.2023, Kontakt: office@ermine.at</p>
+</div>
 
-        // First, save the motive as before
-        var dataURL = canvas.toDataURL('image/png');
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/save_motive', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // After saving, initiate Stripe checkout
-                var fileName = this.responseText; // Get the saved file name
-                initiateStripeCheckout(fileName, timestamp);
-            }
-        };
-        xhr.send('imageData=' + encodeURIComponent(dataURL));
-    }
 
-function initiateStripeCheckout(fileName, timestamp) {
-    fetch('/create-checkout-session', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'fileName=' + encodeURIComponent(fileName) + '&timestamp=' + encodeURIComponent(timestamp)
-    }).then(function(response) {
-        return response.json();
-    }).then(function(sessionData) {
-        return stripe.redirectToCheckout({ sessionId: sessionData.id });
-    }).then(function(result) {
-        if (result.error) {
-            alert(result.error.message);
-        }
-    }).catch(function(error) {
-        console.error('Error:', error);
-    });
-}
-
-    </script>
 </body>
 </html>

@@ -7,6 +7,8 @@ import random
 import string
 import stripe
 from flask_cors import CORS  # Import CORS
+from datetime import datetime
+import pytz
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for the app
@@ -33,6 +35,26 @@ def upload_file():
         return filename
 
 
+@app.route('/editor')
+def editor():
+    # Additional logic can be added here if needed
+    return render_template('editor.html')
+    
+@app.route('/ueber')
+def ueber():
+    # Additional logic can be added here if needed
+    return render_template('ueber.html')
+
+@app.route('/ideen')
+def ideen():
+    # Additional logic can be added here if needed
+    return render_template('ideen.html')
+
+@app.route('/preisliste')
+def preisliste():
+    # Additional logic can be added here if needed
+    return render_template('preisliste.html')
+    
 @app.route('/save_motive', methods=['POST'])
 def save_motive():
     data = request.form['imageData']
@@ -66,9 +88,18 @@ def save_motive():
 # Flask route to create a custom Stripe Checkout session
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
-    file_name = request.form['fileName']
-    timestamp = request.form['timestamp']
-    description = f'{file_name}, {timestamp}'
+    file_path = request.form['fileName']
+    timestamp_iso = request.form['timestamp']
+
+    # Extract just the filename without the path and extension
+    file_name = os.path.splitext(os.path.basename(file_path))[0]
+
+    # Convert the ISO format timestamp to UTC+1
+    utc_time = datetime.fromisoformat(timestamp_iso.replace("Z", "+00:00"))
+    utc_plus_one = utc_time.astimezone(pytz.timezone('Europe/Berlin'))  # 'Europe/Berlin' represents Central European Time (CET) which is UTC+1
+    formatted_timestamp = utc_plus_one.strftime("%d.%m.%Y, %H:%M")
+
+    description = f'{file_name}, {formatted_timestamp}'
 
     try:
         # Create a new Stripe Checkout Session
