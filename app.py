@@ -74,7 +74,7 @@ def save_motive():
         return f"Error opening image: {e}", 500
 
     random_numbers = ''.join(random.choices(string.digits, k=10))
-    filename = f'Molen{random_numbers}.png'
+    filename = f'Ermine Lesezeichen, Bestellnummer: {random_numbers}.png'
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
     # Save the image
