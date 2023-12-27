@@ -74,7 +74,7 @@ def save_motive():
         return f"Error opening image: {e}", 500
 
     random_numbers = ''.join(random.choices(string.digits, k=10))
-    filename = f'Ermine Lesezeichen, Bestellnummer: {random_numbers}.png'
+    filename = f'Bestellnummer: {random_numbers}.png'
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
     # Save the image
@@ -85,42 +85,40 @@ def save_motive():
 
     return filepath
 
-# Flask route to create a custom Stripe Checkout session
-@app.route('/create-checkout-session', methods=['POST'])
-def create_checkout_session():
-    file_path = request.form['fileName']
-    timestamp_iso = request.form['timestamp']
-
-    # Extract just the filename without the path and extension
-    file_name = os.path.splitext(os.path.basename(file_path))[0]
-
-    # Convert the ISO format timestamp to UTC+1
-    utc_time = datetime.fromisoformat(timestamp_iso.replace("Z", "+00:00"))
-    utc_plus_one = utc_time.astimezone(pytz.timezone('Europe/Berlin'))  # 'Europe/Berlin' represents Central European Time (CET) which is UTC+1
-    formatted_timestamp = utc_plus_one.strftime("%d.%m.%Y, %H:%M")
-
-    description = f'{file_name}, {formatted_timestamp}'
-
+def create_checkout_session_common(file_name, timestamp, unit_amount, copies, size):
+    description = f'# Lesezeichen: {copies}, Größe: {size}; {file_name}, {timestamp}'
+    total_amount = unit_amount * copies
     try:
-        # Create a new Stripe Checkout Session
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
                 'price_data': {
                     'currency': 'eur',
-                    'product_data': {
-                        'name': description,
-                    },
-                    'unit_amount': 1900,  # 19 EUR
+                    'product_data': {'name': description},
+                    'unit_amount': unit_amount,
                 },
-                'quantity': 1,
+                'quantity': copies,
             }],
             mode='payment',
-            success_url='https://example.com/success',  # Replace with your success URL
-            cancel_url='https://example.com/cancel',  # Replace with your cancel URL
+            success_url='https://example.com/success',
+            cancel_url='https://example.com/cancel',
         )
         return jsonify({'id': session.id})
     except Exception as e:
         return str(e), 403
+
+
+@app.route('/create-checkout-session/<int:price>/<int:copies>/<size>', methods=['POST'])
+def create_checkout_session(price, copies, size):
+    file_path = request.form['fileName']
+    timestamp_iso = request.form['timestamp']
+    file_name = os.path.splitext(os.path.basename(file_path))[0]
+    utc_time = datetime.fromisoformat(timestamp_iso.replace("Z", "+00:00"))
+    utc_plus_one = utc_time.astimezone(pytz.timezone('Europe/Berlin'))
+    formatted_timestamp = utc_plus_one.strftime("%d.%m.%Y, %H:%M")
+    return create_checkout_session_common(file_name, formatted_timestamp, price, copies, size)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

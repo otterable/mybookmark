@@ -17,10 +17,100 @@ img { max-width: 100%; height: auto;
     height: auto; /* Maintain aspect ratio */
 }
 </style></head>
-<style>
-      body {
-        font-family: 'Roboto', sans-serif;
+    <style>
+        body {
+            background-color: #f5f1e4; /* Updated background color */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+   #editorContainer {
+        text-align: center;
+        width: 1000px;
+        height: 278px;
+        position: relative;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    #editorContainer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
 		
+        width: 100%;
+        height: 100%;
+        background-image: url('static/bgm.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 1; /* Set the opacity of the background image */
+        border-radius: 30px; /* Match the border-radius of the container */
+        z-index: -1; /* Ensure it stays behind the content */
+    }
+        #c {
+            border: 0px solid black;
+            border-radius: 30px;
+            width: 100%; /* Set width to 100% of the container */
+            height: 100%; /* Set height to 100% of the container */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        #logo {
+            max-width: 40%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .register-button {
+            background-color: #634133; /* Example color */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 3px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px 0;
+            cursor: pointer;
+            width: 40%;
+            box-sizing: border-box;
+        }
+		
+.overlay-button {
+    background-color: #634133; /* Example color */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    width: 40%;
+	    font-weight: bold;
+
+    box-sizing: border-box;
+    transition: transform 0.3s, font-weight 0.3s, background-color 0.3s;
+}
+
+.overlay-button:hover {
+    transform: scale(1.02);
+    background-color: #7c5949; /* Lighter shade */
+}
+
+		
+		      body {
+        font-family: 'Roboto', sans-serif;
         background-color: #f5f1e4;
         color: black;
         margin: 0; /* Remove default margin */
@@ -213,7 +303,7 @@ img { max-width: 100%; height: auto;
 
 .projects-header p {
     margin: 0; /* Remove default margin */
-    color: #003056; /* Specific color for the undertitle */
+    color: #634133; /* Specific color for the undertitle */
     font-style: italic; /* Optional: make it italic */
 }
 
@@ -253,7 +343,7 @@ img { max-width: 100%; height: auto;
 }
 
 .bottom-bar {
-    background-color: #003056; /* Dark blue background */
+    background-color: #634133; /* Dark blue background */
     color: white; /* White text color */
     text-align: center; /* Center align text */
     padding: 1px 0; /* Padding on top and bottom */
@@ -263,7 +353,7 @@ img { max-width: 100%; height: auto;
 
 
  .top-bar {
-    background-color: #003056; /* Background color of the top bar */
+    background-color: #634133; /* Background color of the top bar */
     height: 80px; /* Height of the top bar */
     width: 100%; /* Full width of the screen */
     display: flex;
@@ -278,6 +368,12 @@ img { max-width: 100%; height: auto;
     max-height: 80px; /* Ensure the logo fits within the bar's height */
 margin: auto;
 }
+
+#fontSelector {
+    font-size: 20px; /* Increase the font size */
+    /* ... other existing styles ... */
+}
+
 
 /* Styles for buttons inside links in the top bar */
 .top-bar a button {
@@ -334,7 +430,7 @@ margin: auto;
     margin: auto;
 }
 .top-bar a:hover {
-    color: #a8c0ff; /* Change color on hover */
+    color: #fffff1; /* Change color on hover */
     text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.7); /* Add text shadow on hover */
 }
 
@@ -464,16 +560,17 @@ margin: auto;
 
         /* Specific colors for each box */
         .box-red {
-            background-color: #06467c ;
+            background-color: #eba37c ;
         }
 
         .box-blue {
-            background-color: #02569d ;
+            background-color: #de9c7b ;
         }
 
         .box-green {
-            background-color: #2874A6 ;
+            background-color: #a57e67 ;
         }
+		
 		
 	.info-text-field {
             background-color: #F4F4F8; /* Light grey background */
@@ -860,7 +957,6 @@ display: block;
 }
 
     </style>
-
 
 <div class="top-bar">
     <a href="/">

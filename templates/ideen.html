@@ -7,9 +7,99 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <style>
+        body {
+            background-color: #f5f1e4; /* Updated background color */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
 
-   <style>
-      body {
+   #editorContainer {
+        text-align: center;
+        width: 1000px;
+        height: 278px;
+        position: relative;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    #editorContainer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+		
+        width: 100%;
+        height: 100%;
+        background-image: url('static/bgm.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 1; /* Set the opacity of the background image */
+        border-radius: 30px; /* Match the border-radius of the container */
+        z-index: -1; /* Ensure it stays behind the content */
+    }
+        #c {
+            border: 0px solid black;
+            border-radius: 30px;
+            width: 100%; /* Set width to 100% of the container */
+            height: 100%; /* Set height to 100% of the container */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        #logo {
+            max-width: 40%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .register-button {
+            background-color: #634133; /* Example color */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 3px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px 0;
+            cursor: pointer;
+            width: 40%;
+            box-sizing: border-box;
+        }
+		
+.overlay-button {
+    background-color: #634133; /* Example color */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    width: 40%;
+	    font-weight: bold;
+
+    box-sizing: border-box;
+    transition: transform 0.3s, font-weight 0.3s, background-color 0.3s;
+}
+
+.overlay-button:hover {
+    transform: scale(1.02);
+    background-color: #7c5949; /* Lighter shade */
+}
+
+		
+		      body {
         font-family: 'Roboto', sans-serif;
         background-color: #f5f1e4;
         color: black;
@@ -17,7 +107,7 @@
         padding: 0; /* Remove default padding */
     }
 
-        img {
+        img { max-width: 100%; height: auto;
             border-radius: 30px;
             transition: transform 0.3s ease;
         }
@@ -97,7 +187,7 @@
 }
 
 
-        .project img {
+        .project img { max-width: 100%; height: auto;
             max-width: 300px; /* Adjust the width as needed */
             max-height: 200px; /* Adjust the height as needed */
             height: auto; /* Maintain aspect ratio */
@@ -105,8 +195,155 @@
             border-radius: 30px; /* Optional: if you want rounded corners */
         }
 
+
+/* Base styles for project thumbnails */
+.project-thumbnail {
+    background-color: rgba(40, 116, 166, 0.3);
+    border-radius: 30px;
+    margin: 10px;
+    padding: 10px;
+    display: flex; /* Changed to flex to better control the layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: visible; /* Ensure the content is not clipped */
+}
+
+/* Hover effect for project thumbnails */
+.project-thumbnail:hover {
+    transform: scale(1.02);
+}
+
+/* Image style within project thumbnails */
+.project-thumbnail img {
+    width: 90%;
+    margin-top: 20px;
+    height: 400px; /* Fixed height for images */
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+/* Text style inside project thumbnails */
+.project-thumbnail h2, .project-thumbnail p {
+    margin: 0;
+    padding: 5px 0;
+    width: 90%; /* Adjust the width to match the image */
+    text-align: center; /* Center the text */
+}
+
+/* Remove absolute positioning from the description */
+.project-thumbnail p {
+    position: relative; /* Changed from absolute to relative */
+    bottom: auto; /* Remove bottom positioning */
+    overflow: visible; /* Ensure text is not clipped */
+}
+
+
+
+.voting-bar {
+    width: 90%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 30px !important;
+    margin-top: 0px;
+    display: flex;
+}
+
+.upvotes {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 30px !important;
+    transition: width 0.3s ease;
+}
+
+.downvotes {
+    height: 100%;
+    background-color: #b71c1c;
+    border-radius: 30px !important;
+    transition: width 0.3s ease;
+}
+
+.upvotes, .downvotes {
+    /* Existing styles */
+    position: relative; /* Ensure the position is relative for child positioning */
+}
+
+.upvotes span, .downvotes span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Choose a contrasting color */
+    font-size: 12px; /* Adjust the font size */
+    white-space: nowrap;
+    pointer-events: none; /* Prevents blocking click events */
+}
+
+.projects-header {
+    text-align: center; /* Center the content */
+    margin-bottom: 20px; /* Add some space below the header */
+}
+
+.projects-header h1 {
+    margin: 0; /* Remove default margin */
+    padding: 10px 0; /* Add some vertical padding */
+}
+
+.projects-header p {
+    margin: 0; /* Remove default margin */
+    color: #634133; /* Specific color for the undertitle */
+    font-style: italic; /* Optional: make it italic */
+}
+
+
+/* Desktop screens (larger than 1200px) */
+@media (min-width: 1445px) {
+    .project-thumbnail {
+        width: calc(33.333% - 20px); /* Three items per row */
+        height: auto; /* Height adjusts based on content */
+    }
+}
+
+/* Medium screens (between 1024px and 1199px) */
+@media (min-width: 1080px) and (max-width: 1445px) {
+    .project-thumbnail {
+        width: calc(50% - 20px); /* Two items per row */
+        height: auto; /* Height adjusts based on content */
+    }
+}
+
+/* Mobile screens (less than 1024px) */
+@media (max-width: 1088px) {
+    .project-thumbnail {
+        width: calc(100% - 20px); /* Full width */
+        height: auto; /* Height adjusts based on content */
+    }
+    .project-thumbnail img {
+        height: auto; /* Adjust image height for mobile */
+    }
+}
+
+.project-list {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bottom-bar {
+    background-color: #634133; /* Dark blue background */
+    color: white; /* White text color */
+    text-align: center; /* Center align text */
+    padding: 1px 0; /* Padding on top and bottom */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+
  .top-bar {
-    background-color: #003056; /* Background color of the top bar */
+    background-color: #634133; /* Background color of the top bar */
     height: 80px; /* Height of the top bar */
     width: 100%; /* Full width of the screen */
     display: flex;
@@ -122,11 +359,9 @@
 margin: auto;
 }
 
-.logged-in-info {
-    text-align: center; /* Centers the text inside the div */
-    padding: 2px 0; /* Adds some padding above and below the text */
-    background-color: #f5f1e4; /* Optional: background color, if you want to highlight the div */
-    /* Other styling as needed, such as font size, color, etc. */
+#fontSelector {
+    font-size: 20px; /* Increase the font size */
+    /* ... other existing styles ... */
 }
 
 
@@ -185,7 +420,7 @@ margin: auto;
     margin: auto;
 }
 .top-bar a:hover {
-    color: #a8c0ff; /* Change color on hover */
+    color: #fffff1; /* Change color on hover */
     text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.7); /* Add text shadow on hover */
 }
 
@@ -226,31 +461,26 @@ margin: auto;
     transform: scaleX(1);
 }
 	
-	.user-info {
-    color: white; /* Set the text color to match other links */
-    margin-right: 20px; /* Right margin for spacing */
-    font-size: 18px; /* Font size similar to other links */
-    font-weight: bold; /* Bold text */
-    align-self: center; /* Align vertically within the flex container */
+.index-image {
+    position: relative; /* Change positioning context to relative */
+    width: 100%;
+    object-fit: cover;
+    max-height: 500px;
+	border-radius: 0px;
 }
 
-    .index-image {
-        width: 100%;
-        object-fit: cover; /* Crop the image when necessary */
-        max-height: 500px; /* Set a maximum height if needed */
-       border-radius: 0; /* Remove border-radius */
-    transition: none !important; /* Remove hover effect */
-	transform: none !important;
+.index-image:hover {
+ transform: scale(1.00); !important:
 }
 
     .cover-text-container {
         position: absolute;
-        top: 50%;
+        top: 70%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.8); /* Black background with 70% opacity */
-        padding: 20px;
-        border-radius: 30px;
+        background-color: rgba(0, 0, 0, 0.3); /* Black background with 70% opacity */
+        padding: 25px;
+        border-radius: 80px;
         text-align: center;
     }
 
@@ -259,12 +489,22 @@ margin: auto;
         color: white;
         margin: 0;
         padding-bottom: 10px;
+     text-shadow:
+      -2px -2px 0 black,
+            2px -2px 0 black,
+            -2px 2px 0 black,
+            2px 2px 0 black;
     }
 
     .cover-text-container p {
         font-size: 30px;
         color: white;
         margin: 0;
+    text-shadow:
+            -2px -2px 0 black,
+            2px -2px 0 black,
+            -2px 2px 0 black,
+            2px 2px 0 black;
     }
 	
 	    .info-box-container {
@@ -285,6 +525,13 @@ margin: auto;
         .info-box:hover {
             transform: scale(1.02);
         }
+	.user-info {
+    color: white; /* Set the text color to match other links */
+    margin-right: 20px; /* Right margin for spacing */
+    font-size: 18px; /* Font size similar to other links */
+    font-weight: bold; /* Bold text */
+    align-self: center; /* Align vertically within the flex container */
+}
         .info-box-icon {
             max-width: 70px; /* Icon size */
             border-radius: 50%; /* Make it circular */
@@ -353,6 +600,7 @@ margin: auto;
 	padding: 7px;
     /* Add any other button-specific styles here */
 }
+
 }
 #hamburger-button {
     display: none; /* Hidden by default */
@@ -504,7 +752,7 @@ display: block;
     }
 
     .top-bar a .logo {
-        max-width: 270px; /* Adjust logo size */
+        max-width: 350px; /* Adjust logo size */
         max-height: 350px; /* Adjust height automatically */
     }
 
@@ -528,6 +776,174 @@ display: block;
     }
 }
 
+@media only screen and (max-width: 1080px) {
+    html, body {
+        max-width: 100vw; /* Prevent horizontal overflow */
+        overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+    .top-bar {
+        width: 100%; /* Full width of the screen */
+        display: flex;
+        justify-content: space-between; /* Space items evenly */
+        align-items: center; /* Center items vertically */
+        padding: 0 10px; /* Padding on the sides */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+    .hamburger-menu {
+        position: absolute; /* Adjust to absolute positioning */
+        right: 10px; /* Align to the right with some space */
+        top: 10px; /* Align to the top with some space */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    .info-box-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .info-box {
+        width: 80%; /* Adjust width to fit mobile screens */
+        margin-bottom: 20px; /* Add some space between the boxes */
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    html, body {
+        max-width: 100vw; /* Prevent horizontal overflow */
+        overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+    .top-bar {
+        width: 100%; /* Full width of the screen */
+        display: flex;
+        justify-content: space-between; /* Space items evenly */
+        align-items: center; /* Center items vertically */
+        padding: 0 10px; /* Padding on the sides */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+    .hamburger-menu {
+        position: absolute; /* Adjust to absolute positioning */
+        right: 10px; /* Align to the right with some space */
+        top: 10px; /* Align to the top with some space */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    .cover-text-container h1 {
+        font-size: 4vw; /* Adjust font size for smaller screens */
+    }
+
+    .cover-text-container p {
+        font-size: 3.5vw; /* Larger size for smaller screens */
+    }
+	 .cover-text-container {
+	        background-color: rgba(0, 0, 0, 0.0) !important; /* Black background with 70% opacity */
+			top: 60%;
+			        width: 90%; /* Set the width to 90% of the parent container */
+
+}
+}
+
+
+
+
+
+	 .cover-text-container {
+	        background-color: rgba(0, 0, 0, 0.4); /* Black background with 70% opacity */
+			top: 50%;
+			        width: 90%; /* Set the width to 90% of the parent container */
+
+}
+}
+
+.info-text-title, .info-text-undertitle {
+    font-size: 2.5vw; /* Adjust as needed */
+}
+
+@media only screen and (max-width: 1080px) {
+    html, body {
+        max-width: 100vw; /* Prevent horizontal overflow */
+        overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+    .top-bar {
+        width: 100%; /* Full width of the screen */
+        display: flex;
+        justify-content: space-between; /* Space items evenly */
+        align-items: center; /* Center items vertically */
+        padding: 0 10px; /* Padding on the sides */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+    .hamburger-menu {
+        position: absolute; /* Adjust to absolute positioning */
+        right: 10px; /* Align to the right with some space */
+        top: 10px; /* Align to the top with some space */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    .info-text-title {
+        font-size: 6vw; /* Larger size for smaller screens */
+    }
+
+    .info-text-undertitle {
+        font-size: 4vw !important; /* Larger size for smaller screens */
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    html, body {
+        max-width: 100vw; /* Prevent horizontal overflow */
+        overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+    .top-bar {
+        width: 100%; /* Full width of the screen */
+        display: flex;
+        justify-content: space-between; /* Space items evenly */
+        align-items: center; /* Center items vertically */
+        padding: 0 10px; /* Padding on the sides */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+    .hamburger-menu {
+        position: absolute; /* Adjust to absolute positioning */
+        right: 10px; /* Align to the right with some space */
+        top: 10px; /* Align to the top with some space */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    .info-text-field {
+        height: auto; /* Allow the height to adjust based on content */
+    }
+
+    .info-text-container {
+        width: 80%; /* Reduce the width for tablets */
+    }
+}
+@media only screen and (max-width: 1080px) {
+    html, body {
+        max-width: 100vw; /* Prevent horizontal overflow */
+        overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+    .top-bar {
+        width: 100%; /* Full width of the screen */
+        display: flex;
+        justify-content: space-between; /* Space items evenly */
+        align-items: center; /* Center items vertically */
+        padding: 0 10px; /* Padding on the sides */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+    .hamburger-menu {
+        position: absolute; /* Adjust to absolute positioning */
+        right: 10px; /* Align to the right with some space */
+        top: 10px; /* Align to the top with some space */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    .info-text-field {
+        height: auto; /* Allow the height to adjust based on content */
+    }
+
+    .info-text-container {
+        width: 90%; /* Reduce the width further for mobile */
+    }
+}
 
     </style>
 

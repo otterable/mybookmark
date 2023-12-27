@@ -3,7 +3,7 @@
 <head>
     <title>Create your custom engraved metal bookmarks!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
-	    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cookie&family=Dancing+Script&family=Great+Vibes&family=Kaushan+Script&family=Lobster&family=Montserrat:wght@700&family=Oswald:wght@700&family=Pacifico&family=Quicksand:wght@700&family=Raleway:wght@800&family=Sacramento&family=Satisfy&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
@@ -18,8 +18,8 @@
 
    #editorContainer {
         text-align: center;
-        width: 600px;
-        height: 450px;
+        width: 1000px;
+        height: 278px;
         position: relative;
         border-radius: 30px;
         overflow: hidden;
@@ -30,17 +30,18 @@
         position: absolute;
         top: 0;
         left: 0;
+		
         width: 100%;
         height: 100%;
         background-image: url('static/bgm.png');
         background-size: cover;
         background-position: center;
-        opacity: 0.2; /* Set the opacity of the background image */
+        opacity: 1; /* Set the opacity of the background image */
         border-radius: 30px; /* Match the border-radius of the container */
         z-index: -1; /* Ensure it stays behind the content */
     }
         #c {
-            border: 1px solid black;
+            border: 0px solid black;
             border-radius: 30px;
             width: 100%; /* Set width to 100% of the container */
             height: 100%; /* Set height to 100% of the container */
@@ -57,7 +58,7 @@
         }
 
         .register-button {
-            background-color: #003056; /* Example color */
+            background-color: #634133; /* Example color */
             color: white;
             border: none;
             border-radius: 30px;
@@ -71,6 +72,31 @@
             width: 40%;
             box-sizing: border-box;
         }
+		
+.overlay-button {
+    background-color: #634133; /* Example color */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    width: 40%;
+	    font-weight: bold;
+
+    box-sizing: border-box;
+    transition: transform 0.3s, font-weight 0.3s, background-color 0.3s;
+}
+
+.overlay-button:hover {
+    transform: scale(1.02);
+    background-color: #7c5949; /* Lighter shade */
+}
+
 		
 		      body {
         font-family: 'Roboto', sans-serif;
@@ -266,7 +292,7 @@
 
 .projects-header p {
     margin: 0; /* Remove default margin */
-    color: #003056; /* Specific color for the undertitle */
+    color: #634133; /* Specific color for the undertitle */
     font-style: italic; /* Optional: make it italic */
 }
 
@@ -306,7 +332,7 @@
 }
 
 .bottom-bar {
-    background-color: #003056; /* Dark blue background */
+    background-color: #634133; /* Dark blue background */
     color: white; /* White text color */
     text-align: center; /* Center align text */
     padding: 1px 0; /* Padding on top and bottom */
@@ -316,7 +342,7 @@
 
 
  .top-bar {
-    background-color: #003056; /* Background color of the top bar */
+    background-color: #634133; /* Background color of the top bar */
     height: 80px; /* Height of the top bar */
     width: 100%; /* Full width of the screen */
     display: flex;
@@ -331,6 +357,12 @@
     max-height: 80px; /* Ensure the logo fits within the bar's height */
 margin: auto;
 }
+
+#fontSelector {
+    font-size: 20px; /* Increase the font size */
+    /* ... other existing styles ... */
+}
+
 
 /* Styles for buttons inside links in the top bar */
 .top-bar a button {
@@ -387,7 +419,7 @@ margin: auto;
     margin: auto;
 }
 .top-bar a:hover {
-    color: #a8c0ff; /* Change color on hover */
+    color: #fffff1; /* Change color on hover */
     text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.7); /* Add text shadow on hover */
 }
 
@@ -931,51 +963,186 @@ display: block;
         </div>
     </div>
 </div>
-       <div id="editorContainer">
-        <canvas id="c" width="600" height="450"></canvas>
+
+<div id="overlay" style="display: none; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <p style="font-weight: bold; font-size: 18px; color: #333; margin: 10px 0; font-family: 'Arial', sans-serif;">Welcome to the editor! Here you can create your own motive.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #333; margin: 10px 0; font-family: 'Arial', sans-serif;">The editor will guide you through every process.</p>
+        <button class="overlay-button" onclick="showSizeSelection()">Continue</button>
+    </div>
+</div>
+<div id="size-selection" style="display: none; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <p style="font-weight: bold; font-size: 18px; color: #333; margin: 10px 0; font-family: 'Arial', sans-serif;">Bookmarks come in several lengths. Choose the length:</p>
+        <button class="overlay-button" onclick="selectSize(1900, '5x 15 cm')">5x 15 cm - 19 EUR</button>
+        <button class="overlay-button" onclick="selectSize(2000, '5x 18 cm')">5x 18 cm - 20 EUR</button>
+        <button class="overlay-button" onclick="selectSize(2100, '5x 20 cm')">5x 20 cm - 21 EUR</button>
+        <button class="overlay-button" onclick="selectSize(2200, '5x 25 cm')">5x 25 cm - 22 EUR</button>
+        <button class="overlay-button" onclick="selectSize(2300, '5x 30 cm')">5x 30 cm - 23 EUR</button>
+    </div>
+</div>
+
+
+
+<div id="copy-selection" style="display: none; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <p style="font-weight: bold; font-size: 18px; color: #333; margin: 10px 0; font-family: 'Arial', sans-serif;">Choose the amount of copies:</p>
+        <button class="overlay-button" onclick="selectCopies(1)">1x</button>
+        <button class="overlay-button" onclick="selectCopies(2)">2x</button>
+        <button class="overlay-button" onclick="selectCopies(3)">3x</button>
+        <button class="overlay-button" onclick="selectCopies(4)">4x</button>
+        <button class="overlay-button" onclick="selectCopies(5)">5x</button>
+    </div>
+</div>
+
+       <div id="editorContainer" style="margin-top:50px; border-radius: 40px !important; margin-bottom: 50px; outline: none; border: 10px solid #634133">
+        <canvas id="c" width="1000" height="278"></canvas>
         <div>
             
         </div>
     </div>
-<input type="file" id="fileUpload">
-            <button class="register-button" onclick="uploadFile()">Upload</button>
-            <select id="fontSelector" class="register-button">
-                <option value="Arial">Arial</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Courier New">Courier New</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Comic Sans MS">Comic Sans MS</option>
-                <!-- Add more fonts as needed -->
-            </select>
-			
+	
+<input type="file" id="fileUpload" style="display: none;">
+Upload image:
+<button class="overlay-button" onclick="triggerFileUpload()">Upload Image</button>
+
+Add text:
+<select id="fontSelector" class="register-button" onchange="updateFontStyle(this)">
+    <option value="Arial" style="font-family: Arial;">Arial</option>
+    <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+    <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+    <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+    <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+    <option value="Roboto Slab" style="font-family: 'Roboto Slab';">Roboto Slab</option>
+    <option value="Merriweather" style="font-family: Merriweather;">Merriweather</option>
+    <option value="Playfair Display" style="font-family: 'Playfair Display';">Playfair Display</option>
+    <option value="Lora" style="font-family: Lora;">Lora</option>
+    <option value="Noto Serif" style="font-family: 'Noto Serif';">Noto Serif</option>
+    <option value="Bitter" style="font-family: Bitter;">Bitter</option>
+	<option value="Abril Fatface" style="font-family: 'Abril Fatface';">Abril Fatface</option>
+    <option value="Montserrat" style="font-family: 'Montserrat';">Montserrat</option>
+    <option value="Oswald" style="font-family: Oswald;">Oswald</option>
+    <option value="Pacifico" style="font-family: 'Pacifico';">Pacifico</option>
+    <option value="Quicksand" style="font-family: 'Quicksand';">Quicksand</option>
+    <option value="Raleway" style="font-family: Raleway;">Raleway</option>
+    <option value="Ubuntu" style="font-family: Ubuntu;">Ubuntu</option>
+	  <option value="Dancing Script" style="font-family: 'Dancing Script';">Dancing Script</option>
+    <option value="Lobster" style="font-family: Lobster;">Lobster</option>
+    <option value="Great Vibes" style="font-family: 'Great Vibes';">Great Vibes</option>
+    <option value="Satisfy" style="font-family: Satisfy;">Satisfy</option>
+    <option value="Cookie" style="font-family: Cookie;">Cookie</option>
+    <option value="Sacramento" style="font-family: Sacramento;">Sacramento</option>
+    <option value="Kaushan Script" style="font-family: 'Kaushan Script';">Kaushan Script</option>
+</select>
+
+
+		<button class="overlay-button" id="boldButton">Bold</button>
+	
             <button class="register-button" onclick="addText()">Add Text</button>
 			<button class="register-button" onclick="saveMotiveAndOrder()">Save Motive and Order</button>
 
     <script>
 	
+function triggerFileUpload() {
+    var fileInput = document.getElementById('fileUpload');
+    fileInput.click();
+    
+    fileInput.onchange = function() {
+        if (fileInput.files.length > 0) {
+            uploadFile();
+        }
+    };
+}
+
+  document.getElementById('boldButton').addEventListener('click', function() {
+        var activeObject = canvas.getActiveObject();
+        if (activeObject && activeObject.type === 'text') {
+            activeObject.set("fontWeight", activeObject.fontWeight === 'bold' ? 'normal' : 'bold');
+            canvas.renderAll();
+        }
+    });
+
+
+function updateFontStyle(selectElement) {
+    const selectedFont = selectElement.value;
+    selectElement.style.fontFamily = selectedFont;
+}
+
+
+	let selectedSize = '';
+let selectedPrice = 0;
+let selectedCopies = 1;  // Default number of copies
+
 	    var stripe = Stripe('pk_live_51Lxm6sEgtx1au46GHhDtjk3JZ04OaA8p7T6xM4lQFLxfbPotRsuT4AhoM4WA0myCsirZeQN32vnUvUSmn1zVyD3m00docojbx7'); // Replace with your Stripe publishable key
 
         var canvas = new fabric.Canvas('c', {
             preserveObjectStacking: true,
             backgroundColor: 'transparent'
         });
+		   window.onload = function() {
+        document.getElementById('overlay').style.display = 'flex';
+    };
 
-        function uploadFile() {
-            var file = document.getElementById('fileUpload').files[0];
-            var reader = new FileReader();
-            reader.onload = function (f) {
-                var img = new Image();
-                img.onload = function () {
-                    var imgInstance = new fabric.Image(img, {
-                        scaleX: 0.5,
-                        scaleY: 0.5
-                    });
-                    canvas.add(imgInstance);
-                }
-                img.src = f.target.result;
+    function showSizeSelection() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('size-selection').style.display = 'flex';
+    }
+
+function selectSize(price, size) {
+    selectedSize = size;
+    selectedPrice = price;
+    console.log(`Selected size: ${size}, Price: ${price}`);
+    document.getElementById('size-selection').style.display = 'none';
+}
+
+function selectCopies(copies) {
+    selectedCopies = copies;
+    console.log(`Selected copies: ${copies}`);
+    document.getElementById('copy-selection').style.display = 'none';
+
+    saveMotiveAndInitiateCheckout();
+}
+
+function changeFont(fontName) {
+    var activeObject = canvas.getActiveObject();
+    if (activeObject && activeObject.type === 'i-text') {
+        activeObject.set('fontFamily', fontName);
+        canvas.requestRenderAll();
+    }
+}
+
+// Add an event listener to the font selector dropdown
+document.getElementById('fontSelector').addEventListener('change', function() {
+    var selectedFont = this.value;
+    changeFont(selectedFont);
+});
+
+
+
+function saveMotiveAndOrder() {
+    // Display the copy selection overlay
+    document.getElementById('copy-selection').style.display = 'flex';
+}
+
+       function uploadFile() {
+    var file = document.getElementById('fileUpload').files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (f) {
+            var img = new Image();
+            img.onload = function () {
+                var imgInstance = new fabric.Image(img, {
+                    scaleX: 0.5,
+                    scaleY: 0.5
+                });
+                canvas.add(imgInstance);
             }
-            reader.readAsDataURL(file);
+            img.src = f.target.result;
         }
+        reader.readAsDataURL(file);
+    }
+}
+
 
         function addText() {
             var selectedFont = document.getElementById('fontSelector').value;
@@ -1006,27 +1173,27 @@ display: block;
         }
 		
 
-      function saveMotiveAndOrder() {
-        // Get current timestamp
-        var timestamp = new Date().toISOString();
+function saveMotiveAndInitiateCheckout() {
+    var timestamp = new Date().toISOString();
+    var dataURL = canvas.toDataURL('image/png');
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/save_motive', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var fileName = this.responseText; // Get the saved file name
+            initiateStripeCheckout(fileName, timestamp, selectedPrice, selectedCopies, selectedSize);
+        }
+    };
+    xhr.send('imageData=' + encodeURIComponent(dataURL));
+}
 
-        // First, save the motive as before
-        var dataURL = canvas.toDataURL('image/png');
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/save_motive', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // After saving, initiate Stripe checkout
-                var fileName = this.responseText; // Get the saved file name
-                initiateStripeCheckout(fileName, timestamp);
-            }
-        };
-        xhr.send('imageData=' + encodeURIComponent(dataURL));
-    }
+function initiateStripeCheckout(fileName, timestamp, unitPrice, copies, size) {
+    // Correctly calculate the total price
+    var totalPrice = unitPrice * copies;
 
-function initiateStripeCheckout(fileName, timestamp) {
-    fetch('/create-checkout-session', {
+    // Fetch to create a checkout session with the correct total price, number of copies, and size
+    fetch(`/create-checkout-session/${unitPrice}/${copies}/${encodeURIComponent(size)}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -1044,6 +1211,7 @@ function initiateStripeCheckout(fileName, timestamp) {
         console.error('Error:', error);
     });
 }
+
 
     </script>
 </body>
