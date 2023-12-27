@@ -1124,9 +1124,8 @@ function saveMotiveAndOrder() {
     document.getElementById('copy-selection').style.display = 'flex';
 }
 
-       function uploadFile() {
-    var file = document.getElementById('fileUpload').files[0];
-    if (file) {
+    function uploadFile() {
+        var file = document.getElementById('fileUpload').files[0];
         var reader = new FileReader();
         reader.onload = function (f) {
             var img = new Image();
@@ -1135,13 +1134,19 @@ function saveMotiveAndOrder() {
                     scaleX: 0.5,
                     scaleY: 0.5
                 });
+
+                // Apply Grayscale and Contrast Filters
+                imgInstance.filters.push(new fabric.Image.filters.Grayscale());
+                imgInstance.filters.push(new fabric.Image.filters.Contrast({ contrast: 2 })); // Adjust contrast value as needed
+
+                imgInstance.applyFilters();
                 canvas.add(imgInstance);
-            }
+                canvas.renderAll();
+            };
             img.src = f.target.result;
-        }
+        };
         reader.readAsDataURL(file);
     }
-}
 
 
         function addText() {
