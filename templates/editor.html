@@ -16,14 +16,22 @@
             flex-direction: column;
         }
 
-   #editorContainer {
-        text-align: center;
-        width: 1000px;
-        height: 278px;
-        position: relative;
-        border-radius: 30px;
-        overflow: hidden;
-    }
+
+#editorContainer {
+    width: 1000px !important; /* Ensure fixed width */
+    height: 278px !important; /* Ensure fixed height */
+    margin: 20px auto; /* Center the container */
+    position: relative; /* Relative positioning */
+    flex-shrink: 0; /* Prevent flexbox from shrinking it */
+    display: inline-block; /* Inline block for independent sizing */
+}
+
+#c {
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    position: relative; /* Relative to editorContainer */
+}
+	
 
     #editorContainer::before {
         content: '';
@@ -40,15 +48,6 @@
         border-radius: 30px; /* Match the border-radius of the container */
         z-index: -1; /* Ensure it stays behind the content */
     }
-        #c {
-            border: 0px solid black;
-            border-radius: 30px;
-            width: 100%; /* Set width to 100% of the container */
-            height: 100%; /* Set height to 100% of the container */
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
 
 
         #logo {
@@ -995,16 +994,29 @@ display: block;
     </div>
 </div>
 
-       <div id="editorContainer" style="margin-top:50px; border-radius: 40px !important; margin-bottom: 50px; outline: none; border: 10px solid #634133">
-        <canvas id="c" width="1000" height="278"></canvas>
+<div id="editorContainer">
+    <canvas id="c" width="1000" height="278"></canvas>
         <div>
             
         </div>
     </div>
 	
 <input type="file" id="fileUpload" style="display: none;">
-Upload image:
 <button class="overlay-button" onclick="triggerFileUpload()">Upload Image</button>
+
+<div style="text-align: center; margin-top: 0px;">
+    <h3 style="font-weight: bold; font-size: 24px; margin-bottom: 0px; color: #634133;">Which images to use:</h3>
+    <p style="margin-bottom: 2px; font-size: 16px; line-height: 0.2; 8olor: #333;">Laser engraving is one depth only, therefore avoid using photos.</p>
+    <p style="margin-bottom: 2px; font-size: 16px; line-height: 0.2; color: #333;">Use simple line art vector images with transparent backgrounds.</p>
+    <p style="margin-bottom: 15px; font-size: 16px; line-height: 0.2; color: #333;">For sake of transparency, we will remove the backgrounds from your images.</p>
+
+    <p style="font-size: 18px;  color: #634133;">Good sources for images:</p>
+    <ul style="list-style-type: none; margin-top: -15px; padding: 0;">
+        <li><a href="https://www.flaticon.com/search?type=icon&search-group=all&word=flowers&license=&color=&shape=&current_section=&author_id=&pack_id=&family_id=&style_id=&type=" target="_blank" rel="noopener noreferrer" style="color: #2874A6; text-decoration: none; font-size: 16px; margin-bottom: 5px; line-height: 0.2;   display: inline-block;">Flaticon</a></li>
+        <li><a href="https://de.freepik.com/search?format=search&last_filter=query&last_value=stars&query=stars&type=icon" target="_blank" rel="noopener noreferrer" style="color: #2874A6; text-decoration: none; font-size: 16px; margin-bottom: 5px; line-height: 0.2;   display: inline-block;">Freepik</a></li>
+        <li><a href="https://www.google.com/search?q=fox+vector+line+art&tbm=isch" target="_blank" rel="noopener noreferrer" style="color: #2874A6; text-decoration: none; font-size: 16px;  line-height: 0.2;  display: inline-block;">Google search for vectors</a></li>
+    </ul>
+</div>
 
 Add text:
 <select id="fontSelector" class="register-button" onchange="updateFontStyle(this)">
@@ -1036,7 +1048,6 @@ Add text:
 </select>
 
 
-		<button class="overlay-button" id="boldButton">Bold</button>
 	
             <button class="register-button" onclick="addText()">Add Text</button>
 			<button class="register-button" onclick="saveMotiveAndOrder()">Save Motive and Order</button>
